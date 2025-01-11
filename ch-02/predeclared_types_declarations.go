@@ -84,7 +84,7 @@ func main() {
 	// 6. Declaring multiple variables of different types, and assigning values to them.
 	var n, o = 12.34, "wtf"
 
-	// 7. Declaring multiple variables at once using a declaration list.
+	// 7. Declaring multiple variables at once using a declaration list. This method should be used when declaring a group of related variables.
 	var (
 		p    int = 12
 		q        = "wagwan!"
@@ -99,4 +99,18 @@ func main() {
 	v, w := "lfg!", 43.21
 
 	fmt.Println(g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w)
+
+	//* CONST
+	// The `const` keyword is used to declare immutable values. They are just a way to give names to immutable literals. They can be declared in a function, but they should be declared at the package level.
+	const constNum = 12
+
+	// Go also doesn't have a way to specify if a value calculated at runtime is immutable. Therefore, something like `const z = x + y` will not compile.
+	// Constants can also be typed or non-typed. An untyped constant gives provides more flexibility
+
+	fmt.Println(constNum)
+
+	// Exercise 02
+	questionNum01()
+	questionNum02()
+	questionNum03()
 }
