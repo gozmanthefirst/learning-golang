@@ -58,7 +58,7 @@ func main() {
 	fmt.Println(sl1)
 
 	// 2. The zero value for a slice is `nil`. A nil slice contains nothing.
-	// 3. Two slices cannot be compared to each other using `==` and `!=`. They can only use `==` and `!=` to be compared to `nil`. Although there are functions from the `slices` package from the standard library that can be used to compare two slices.
+	// 3. Two slices cannot be compared to each other using `==` and `!=`. Slices can only use `==` and `!=` to be compared to `nil`. However, there are functions from the `slices` package from the standard library that can be used to compare two slices.
 
 	sl2 := []int{1, 2, 3, 4, 5}
 	sl3 := []int{1, 2, 3, 4, 5}
@@ -75,7 +75,7 @@ func main() {
 	fmt.Println(len(sl2))
 
 	//* `append`
-	// This is used to pass new elements to a slice. It takes at least 2 parameters, the slice being appended to, and the value that is being appended. Their types must be the same. When using the `append` function, it is recommended that the slice that is returned should be assigned to the variable (slice) that was passed in to the `append` function (although, it can be assigned to any slice).
+	// This is used to pass new elements to a slice. It takes at least 2 parameters, the slice being appended to, and the value that is being appended. The type of the elements of the slice must be the same with the type of the variable being appended to the slice. When using the `append` function, it is recommended that the slice that is returned should be assigned to the variable (slice) that was passed in to the `append` function (although, it can be assigned to any slice).
 
 	sl1 = append(sl4, 12)
 	fmt.Println(sl1)
@@ -85,13 +85,13 @@ func main() {
 	fmt.Println(sl2)
 
 	//* Capacity
-	// The capacity of a slice is the highest number of values a slice can have.
+	// The capacity of a slice is the number of consecutive memory locations that has been reserved for the slice.
 
 	fmt.Println(cap(sl1))
 	fmt.Println(cap(sl2))
 
 	//* `make`
-	// Slices being able to grow automatically is a nice feature to have, but if the required number of values to be put in a s;ice is know before hand, it is a good practice to create it with the correct initial capacity. We can do that using `make`.
+	// Slices being able to grow automatically is a nice feature to have, but if the required number of values to be put in a slice is know before hand, it is a good practice to create it with the correct initial capacity. We can do that using `make`.
 	// `make` allows for the creation of empty slices that have a specified length or capacity. It allows you to specify the type, length and optionally, the capacity of the slice.
 
 	// This will create a slice containing 5 values with each one being equal to zero.
@@ -130,6 +130,10 @@ func main() {
 
 	fmt.Println(sl9, sl10)
 
-    // If you have a good idea os how large the slice needs to be but do not know what those values will be, then use make.
+    // If you have a good idea on how large the slice needs to be but do not know what those values will be, then use make.
     // The best way is to use it with a zero length and a specified capacity.
+
+    sl11 := make([]string, 0, 100)
+
+    fmt.Println(sl11)
 }
