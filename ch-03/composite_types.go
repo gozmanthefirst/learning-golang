@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"slices"
 )
 
@@ -130,10 +131,78 @@ func main() {
 
 	fmt.Println(sl9, sl10)
 
-    // If you have a good idea on how large the slice needs to be but do not know what those values will be, then use make.
-    // The best way is to use it with a zero length and a specified capacity.
+	// If you have a good idea on how large the slice needs to be but do not know what those values will be, then use make.
+	// The best way is to use it with a zero length and a specified capacity.
 
-    sl11 := make([]string, 0, 100)
+	sl11 := make([]string, 0, 100)
+	fmt.Println(sl11)
 
-    fmt.Println(sl11)
+	sl11 = append(sl11, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+
+	//* Slicing Slices
+	// A slice can be sliced (pun intended), by using the following notation:
+
+	// s2 := s1[x:y]
+	// where s1 is the slice being sliced, s2 is the subslice being created, x is the index of the element that the subslice will start from, and y is the index of the element that is one past the element that will be the last element in the subslice.
+
+	sl12 := sl11[0:5]
+	sl13 := sl11[3:]  // This will create a subslice from the element at index 3 of the old slice to the end of the old slice.
+	sl14 := sl11[:11] // This will create a subslice from the beginning of the old slice to the element before the element at index 11 of the old slice.
+	sl15 := sl11[:]   // This will create a subslice from the beginning of the old slice to the end of the old slice, which means it will create a subslice identical to the old slice.
+
+	fmt.Println(sl12)
+	fmt.Println(sl13)
+	fmt.Println(sl14)
+	fmt.Println(sl15)
+
+	// Using append with subslices can be very tricky.
+	slX := make([]string, 0, 5)
+	slX = append(slX, "a", "b", "c", "d")
+	slY := slX[:2]
+	slZ := slX[2:]
+	fmt.Println(cap(slX), cap(slY), cap(slZ))
+	slY = append(slY, "i", "j", "k")
+	slX = append(slX, "x")
+	slZ = append(slZ, "y")
+	fmt.Println("x:", slX)
+	fmt.Println("y:", slY)
+	fmt.Println("z:", slZ)
+
+	// Therefore, it is adviced to either avoid using append with slices, or use a 'full slice expression'.
+	// The 'full slice expression' includes a third part, which indicates the last position in the parent slice’s capacity that’s available for the subslice.
+
+	slXX := make([]string, 0, 5)
+	slXX = append(slXX, "a", "b", "c", "d")
+	slYY := slXX[:2:2]
+	slZZ := slXX[2:4:4]
+
+	fmt.Println(slYY)
+	fmt.Println(slZZ)
+
+	// The third part indicates the last position of the original slice that is available to the subslice. The capacity of the subslice can then be calculated by subtracting the starting offset from the third part of the 'full slice expression'.
+
+	//* `copy`
+	// To create a slice from another slice but make it independent of the original slice, you can use the `copy` function. The copy function is used like this:
+
+	// z := copy(x, y)
+	// where x is the destination slice, y is the source slice, and z is the number of elements copied.
+	// A subslice can also be the source slice.
+
+	//* Converting an array to a slice
+	// A slice can be created from an array or subset of an array by creating a subslice from the array.
+
+	xArray := [5]int{1, 2, 3, 4, 5}
+	xSlice := xArray[:]
+
+	fmt.Println(reflect.TypeOf(xArray), reflect.TypeOf(xSlice)) // will return [5]int []int
+
+	//* Converting a slice to an array
+	// An array can be created from a slice by performing an explicit type conversion.
+
+	ySlice := []int{1, 2, 3, 4, 5}
+	yArray := [3]int(ySlice)
+
+	fmt.Println(reflect.TypeOf(ySlice), reflect.TypeOf(yArray))
+
+    //* Maps
 }
